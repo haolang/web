@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test1</title>
+    <style>
+        .rectangle {
+            position: relative;
+            box-sizing: border-box;
+            width: 180px;
+            height: 180px;
+            border: 1px solid #000000;
+            left: 200px;
+            top: 200px;
+        }
+        .spot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ffffff;
+            border: 1px solid #000000;
+        }
+        .s1 {
+            top: -5px;
+            left: -5px;
+            cursor: nw-resize;
+        }
+        .s2 {
+            top: -5px;
+            right: -5px;
+            cursor: ne-resize;
+        }
+        .s3 {
+            bottom: -5px;
+            right: -5px;
+            cursor: se-resize;
+        }
+        .s4 {
+            bottom: -5px;
+            left: -5px;
+            cursor: sw-resize;
+        }
+    </style>
+</head>
+<body>
+<div class="rectangle">
+    <span class="spot s1"></span>
+    <span class="spot s2"></span>
+    <span class="spot s3"></span>
+    <span class="spot s4"></span>
+</div>
+</body>
+<script>
+    let obj = document.getElementsByClassName('rectangle').item(0); // 矩形
+    let angles = document.querySelectorAll('.spot'); // 四角
+    let isDown = false; // 鼠标是否被按下
+    let eventEmitter = ''; // 触发鼠标按下事件的元素
+    let initDownXY = {}; // 鼠标按下时的(x, y)
+    let curPosXY = {}; // 鼠标按下时主体元素的位置left 和 top, (x, y)
+    obj.onmousedown = function (e) {
+        // 初始事件触发位置
+        initDownXY.x = e.clientX;
+        initDownXY.y = e.clientY;
+        // 元素的当前位置
+        curPosXY.x = obj.offsetLeft;
+        curPosXY.y = obj.offsetTop;
+        isDown = true;
+        eventEmitter = 'rectangle';
+    };
+    function drag(e) {
+        // 坐标位置
+        let x = e.clientX;
+        let y = e.clientY;
+        // 计算移动数值
+        let moveX = x - initDownXY.x + curPosXY.x;
+        let moveY = y - initDownXY.y + curPosXY.y;
+        obj.style.left = moveX + 'px';
+        obj.style.top = moveY + 'px';
+    }
+
+    let mouseX = 0;
+    let mouseY = 0;
+    // 左上角
+    angles[0].onmousedown = function (e) {
+        e.stopPropagation();
+        //记录开始点击时鼠标的位置
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        isDown = true;
+        eventEmitter = 'angle_nw';
+    };
+
+    // 右上角
+    angles[1].onmousedown = function (e) {
+        e.stopPropagation();
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        isDown = true;
+        eventEmitter = 'angle_ne';
+    };
+
+    // 左下角
+    angles[2].onmousedown = function (e) {
+        e.stopPropagation();
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        isDown = true;
+        eventEmitter = 'angle_sw';
+    };
+
+    // 右下角
+    angles[3].onmousedown = function (e) {
+        e.stopPropagation();
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        isDown = true;
+        eventEmitter = 'angle_se';
+    };
+
+    function upward(e) {
+        // mouseY - e.clientY 的正负代表鼠标上下的移动方向
+        obj.style.height = obj.offsetHeight + mouseY - e.clientY + 'px';
+        mouseY = e.clientY > 0 ? e.clientY : 0;
+        obj.style.top = mouseY + 'px';
+    }
+    function rightward(e) {
+        // e.clientX - mouseX的正负代表鼠标左右的移动方向
+        obj.style.width = obj.offsetWidth + e.clientX - mouseX + 'px';
+        mouseX = e.clientX > 0 ? e.clientX : 0;
+        obj.style.right = mouseX + 'px';
+    }
+    function downward(e) {
+        // mouseY - e.clientY 的正负代表鼠标上下的移动方向
+        obj.style.height = obj.offsetHeight + e.clientY -  mouseY + 'px';
+        mouseY = e.clientY > 0 ? e.clientY : 0;
+        obj.style.bottom = mouseY + 'px';
+    }
+    function leftward(e) {
+        // mouseX - e.clientX的正负代表鼠标左右的移动方向
+        obj.style.width = obj.offsetWidth + mouseX - e.clientX + 'px';
+        mouseX = e.clientX > 0 ? e.clientX : 0;
+        obj.style.left = mouseX + 'px';
+    }
+    window.onmousemove = function (e) {
+        if (isDown) {
+            switch (eventEmitter) {
+                case 'rectangle':
+                    drag(e);
+                    break;
+                case 'angle_nw':
+                    // 拖动左上角
+                    leftward(e);
+                    upward(e);
+                    break;
+                case 'angle_ne':
+                    // 拖动右上角
+                    rightward(e);
+                    upward(e);
+                    break;
+                case 'angle_sw':
+                    // 拖动右下角
+                    rightward(e);
+                    downward(e);
+                    break;
+                case 'angle_se':
+                    // 拖动左下角
+                    leftward(e);
+                    downward(e);
+                    break;
+            }
+        }
+    };
+    window.onmouseup = function () {
+        isDown = false;
+    };
+</script>
+</html>
