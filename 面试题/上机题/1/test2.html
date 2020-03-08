@@ -78,14 +78,13 @@
         obj.style.top = moveY + 'px';
     }
 
-    let mouseX = 0;
-    let mouseY = 0;
     // 左上角
     angles[0].onmousedown = function (e) {
         e.stopPropagation();
         //记录开始点击时鼠标的位置
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+
+        initDownXY.x = e.clientX;
+        initDownXY.y = e.clientY;
         isDown = true;
         eventEmitter = 'angle_nw';
     };
@@ -93,8 +92,8 @@
     // 右上角
     angles[1].onmousedown = function (e) {
         e.stopPropagation();
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+        initDownXY.x = e.clientX;
+        initDownXY.y = e.clientY;
         isDown = true;
         eventEmitter = 'angle_ne';
     };
@@ -102,8 +101,8 @@
     // 左下角
     angles[2].onmousedown = function (e) {
         e.stopPropagation();
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+        initDownXY.x = e.clientX;
+        initDownXY.y = e.clientY;
         isDown = true;
         eventEmitter = 'angle_sw';
     };
@@ -111,35 +110,35 @@
     // 右下角
     angles[3].onmousedown = function (e) {
         e.stopPropagation();
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+        initDownXY.x = e.clientX;
+        initDownXY.y = e.clientY;
         isDown = true;
         eventEmitter = 'angle_se';
     };
 
     function upward(e) {
-        // mouseY - e.clientY 的正负代表鼠标上下的移动方向
-        obj.style.height = obj.offsetHeight + mouseY - e.clientY + 'px';
-        mouseY = e.clientY > 0 ? e.clientY : 0;
-        obj.style.top = mouseY + 'px';
+        // initDownXY.y - e.clientY 的正负代表鼠标上下的移动方向
+        obj.style.height = obj.offsetHeight + initDownXY.y - e.clientY + 'px';
+        initDownXY.y = e.clientY > 0 ? e.clientY : 0;
+        obj.style.top = initDownXY.y + 'px';
     }
     function rightward(e) {
         // e.clientX - mouseX的正负代表鼠标左右的移动方向
-        obj.style.width = obj.offsetWidth + e.clientX - mouseX + 'px';
-        mouseX = e.clientX > 0 ? e.clientX : 0;
-        obj.style.right = mouseX + 'px';
+        obj.style.width = obj.offsetWidth + e.clientX - initDownXY.x + 'px';
+        initDownXY.x = e.clientX > 0 ? e.clientX : 0;
+        obj.style.right = initDownXY.x + 'px';
     }
     function downward(e) {
-        // mouseY - e.clientY 的正负代表鼠标上下的移动方向
-        obj.style.height = obj.offsetHeight + e.clientY -  mouseY + 'px';
-        mouseY = e.clientY > 0 ? e.clientY : 0;
-        obj.style.bottom = mouseY + 'px';
+        // initDownXY.y - e.clientY 的正负代表鼠标上下的移动方向
+        obj.style.height = obj.offsetHeight + e.clientY -  initDownXY.y + 'px';
+        initDownXY.y = e.clientY > 0 ? e.clientY : 0;
+        obj.style.bottom = initDownXY.y + 'px';
     }
     function leftward(e) {
-        // mouseX - e.clientX的正负代表鼠标左右的移动方向
-        obj.style.width = obj.offsetWidth + mouseX - e.clientX + 'px';
-        mouseX = e.clientX > 0 ? e.clientX : 0;
-        obj.style.left = mouseX + 'px';
+        // initDownXY.x - e.clientX的正负代表鼠标左右的移动方向
+        obj.style.width = obj.offsetWidth + initDownXY.x - e.clientX + 'px';
+        initDownXY.x = e.clientX > 0 ? e.clientX : 0;
+        obj.style.left = initDownXY.x + 'px';
     }
     window.onmousemove = function (e) {
         if (isDown) {
