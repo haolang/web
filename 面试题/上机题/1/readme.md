@@ -28,13 +28,21 @@
     obj.style.height = obj.offsetHeight + mouseY - e.clientY + 'px';
     ```
 3. 实际拖拽时除右下角其他四角进行拖拽后再次点击未拖拽未松开时矩形框会先有一个小段位移。
-输出日志发现当点击鼠标左键拖拽后松开执行事件顺序为：onmousedown，onmousemove ... onmousemove,  onmouseup, onmousemove。在 onmouseup 后多执行了一次 onmousemove 。
-猜测跟 stopPropagation有关,但是注释掉该函数，注释掉矩形拖拽事件，依旧有此bug。
-网上搜索说是的 webkit 内核浏览器的bug，目前测试了ie，edge和火狐打开没有此bug，应该是跟内核有关。
-目前通过以下方法解决此bug：
+
+    输出日志发现当点击鼠标左键拖拽后松开执行事件顺序为：onmousedown，onmousemove ... onmousemove,  onmouseup, onmousemove。
+    在 onmouseup 后多执行了一次 onmousemove 。
+
+    猜测跟 stopPropagation有关,但是注释掉该函数并注释掉矩形拖拽事件，依旧有此bug。
+    
+    网上搜索说是的 webkit 内核浏览器的bug，目前测试了ie，edge和火狐打开没有此bug，应该是跟内核有关。
+    
+    >目前通过以下方法解决此bug：
 
     通过在onmousemove触发的函数里面判断点击鼠标的位置和当前鼠标的位置是否一样来判断是否真的移动了。
 
 4. 完成网页预览（需要科学上网姿势打开）：
     * [题1](http://htmlpreview.github.io/?https://github.com/haolang/web/blob/master/%E9%9D%A2%E8%AF%95%E9%A2%98/%E4%B8%8A%E6%9C%BA%E9%A2%98/1/test1.html)
     * [题2](http://htmlpreview.github.io/?https://github.com/haolang/web/blob/master/%E9%9D%A2%E8%AF%95%E9%A2%98/%E4%B8%8A%E6%9C%BA%E9%A2%98/1/test2.html)
+    
+5. 事件冒泡：
+    当事件发生后，这个事件就要开始传播(从里到外或者从外向里)。因为事件源本身（可能）并没有处理事件的能力，即处理事件的函数（方法）并未绑定在该事件源上。
