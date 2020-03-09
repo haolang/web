@@ -28,7 +28,7 @@
     obj.style.height = obj.offsetHeight + mouseY - e.clientY + 'px';
     ```
 3. 实际拖拽时除右下角其他四角进行拖拽后再次点击未拖拽未松开时矩形框会先有一个小段位移。
-输出日志发现当点击鼠标左键拖拽后松开执行事件顺序为：onmousedown，onmousemove ... onmousemove,  onmouseup, onmousemove。在 onmouseup 后多执行了一次 onmousemove 。据说是浏览器的bug。
+输出日志发现当点击鼠标左键拖拽后松开执行事件顺序为：onmousedown，onmousemove ... onmousemove,  onmouseup, onmousemove。在 onmouseup 后多执行了一次 onmousemove 。据说是浏览器的bug，但事情好像没有这么简单，应该跟 stopPropagation 有关。
 通过在onmousemove触发的函数里面判断点击鼠标的位置和当前鼠标的位置是否一样来判断是否真的移动了。
 
 4. 完成网页预览（需要科学上网姿势打开）：
