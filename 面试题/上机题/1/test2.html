@@ -13,6 +13,9 @@
             left: 200px;
             top: 200px;
         }
+        .rectangle:hover {
+            cursor: move;
+        }
         .spot {
             position: absolute;
             width: 10px;
@@ -40,6 +43,7 @@
             left: -5px;
             cursor: sw-resize;
         }
+
     </style>
 </head>
 <body>
@@ -86,6 +90,7 @@
         initDownXY.y = e.clientY;
         isDown = true;
         eventEmitter = 'angle_nw';
+        // console.log('左上角 = ', initDownXY.x,'-',initDownXY.y);
     };
 
     // 右上角
@@ -95,6 +100,7 @@
         initDownXY.y = e.clientY;
         isDown = true;
         eventEmitter = 'angle_ne';
+        // console.log('右上角 = ', initDownXY.x,'-',initDownXY.y);
     };
 
     // 左下角
@@ -104,6 +110,7 @@
         initDownXY.y = e.clientY;
         isDown = true;
         eventEmitter = 'angle_sw';
+        // console.log('左下角 = ', initDownXY.x,'-',initDownXY.y);
     };
 
     // 右下角
@@ -113,34 +120,43 @@
         initDownXY.y = e.clientY;
         isDown = true;
         eventEmitter = 'angle_se';
+        // console.log('右下角 = ', initDownXY.x,'-',initDownXY.y);
     };
 
     function upward(e) {
+        // console.log('upward');
         // initDownXY.y - e.clientY 的正负代表鼠标上下的移动方向
         obj.style.height = obj.offsetHeight + initDownXY.y - e.clientY + 'px';
         initDownXY.y = e.clientY > 0 ? e.clientY : 0;
         obj.style.top = initDownXY.y + 'px';
     }
     function rightward(e) {
+        // console.log('rightward');
         // e.clientX - mouseX的正负代表鼠标左右的移动方向
         obj.style.width = obj.offsetWidth + e.clientX - initDownXY.x + 'px';
         initDownXY.x = e.clientX > 0 ? e.clientX : 0;
         obj.style.right = initDownXY.x + 'px';
     }
     function downward(e) {
+        // console.log('downward');
         // initDownXY.y - e.clientY 的正负代表鼠标上下的移动方向
         obj.style.height = obj.offsetHeight + e.clientY -  initDownXY.y + 'px';
         initDownXY.y = e.clientY > 0 ? e.clientY : 0;
         obj.style.bottom = initDownXY.y + 'px';
     }
     function leftward(e) {
+        // console.log('leftward');
         // initDownXY.x - e.clientX的正负代表鼠标左右的移动方向
         obj.style.width = obj.offsetWidth + initDownXY.x - e.clientX + 'px';
         initDownXY.x = e.clientX > 0 ? e.clientX : 0;
         obj.style.left = initDownXY.x + 'px';
     }
     window.onmousemove = function (e) {
-        if (isDown) {
+
+        // console.log('onmousemove');
+        //判断是否真的移动了
+        const reallyMove = initDownXY.x !== e.clientX || initDownXY.y !== e.clientY;
+        if (isDown && reallyMove ) {
             switch (eventEmitter) {
                 case 'rectangle':
                     drag(e);
@@ -170,6 +186,7 @@
     };
     window.onmouseup = function () {
         isDown = false;
+        console.log('isDown = ',isDown);
     };
 </script>
 </html>
