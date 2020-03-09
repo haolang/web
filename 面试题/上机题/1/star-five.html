@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style  type="text/css">
+        .content {
+            height: 60px;
+            width: 248px;
+            padding-top: 30px;
+            text-align: center;
+        }
+        .star-five {
+            margin: 10px -10px;
+            width: 0;
+            height: 0;
+            border-top: 0;
+            border-right: 14px solid transparent;
+            border-left: 14px solid transparent;
+            border-top: 10px solid #888888;
+            position: absolute;
+        }
+
+        .star-five:before {
+            width: 0;
+            height: 0;
+            border-right: 14px solid transparent;
+            border-left: 14px solid transparent;
+            border-bottom: 10px solid #888888;
+            position: absolute;
+            top: -10px;
+            left: -14px;
+            display: block;
+            content: "";
+            transform:rotate(110deg);
+            -moz-transform:rotate(110deg);
+            -webkit-transform:rotate(110deg);
+            -ms-transform:rotate(110deg);
+            -o-transform:rotate(110deg);
+        }
+
+        .star-five:after {
+            width: 0;
+            height: 0;
+            display: block;
+            position: absolute;
+            color: #888888;
+            top: -10px;
+            left: -14px;
+            border-right: 14px solid transparent;
+            border-left: 14px solid transparent;
+            border-bottom: 10px solid #888888;
+            content: "";
+            transform:rotate(-110deg);
+            -moz-transform:rotate(-110deg);
+            -webkit-transform:rotate(-110deg);
+            -ms-transform:rotate(-110deg);
+            -o-transform:rotate(-110deg);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <i class="star-five">
+        </i>
+    </div>
+</body>
+</html>

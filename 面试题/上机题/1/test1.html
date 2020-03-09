@@ -3,92 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
     <style  type="text/css">
-        .content{
-            height: 100px;
-            text-align: center;
+        .main-content {
+            padding-top: 8px;
+            height: 70px;
+            width: 270px;
+            border: 1px solid #666666;
+            background-color: #CBCBCB;
+            border-radius: 20px;
+            box-shadow: 0 0 1px 2px #ffffff inset;
         }
-        .text{
+        .content {
+            margin: 0 auto;
+            height: 60px;
+            width: 250px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 30px 2px -1px #DCDCDC inset, 0 -1px 1px 1px #8C8C8C,0 1px 1px 1px #616161;
+            background-color: #B7B7B7;
+        }
+        .content-item {
+            margin: 1px auto;
+            padding: 10px 0;
+            width: 210px;
+            height: 30px;
+        }
+        .text {
             position: relative;
-            /*top: 10px;*/
-            margin: 0 20px 0 27px;
+            color: #555454;
+            margin: 0 10px;
             font-size: 20px;
             font-weight: bold;
+            text-shadow: 1px 1px 1px #DEDEDE;
         }
-
-        .star-content{
-            width: 22px;
-            height: 22px;
-        }
-
-        .star-five{
-            margin: 10px -10px;
-            width: 0;
-            height: 0;
-            border-top: 0;
-            border-right: 14px solid transparent;
-            border-left: 14px solid transparent;
-            border-top: 10px solid #888888;
-            position: absolute;
-        }
-
-
-
-        .star-five:before{
-            width: 0;
-            height: 0;
-            border-right: 14px solid transparent;
-            border-left: 14px solid transparent;
-            border-bottom: 10px solid #888888;
-            position: absolute;
-            top: -10px;
-            left: -14px;
-            display: block;
-            content: "";
-            transform:rotate(110deg);
-            -moz-transform:rotate(110deg);
-            -webkit-transform:rotate(110deg);
-            -ms-transform:rotate(110deg);
-            -o-transform:rotate(110deg);
-        }
-
-        .star-five:after{
-            width: 0;
-            height: 0;
-            display: block;
-            position: absolute;
+        .star-five {
+            font-size: 24px;
+            font-weight: bold;
             color: #888888;
-            top: -10px;
-            left: -14px;
-            border-right: 14px solid transparent;
-            border-left: 14px solid transparent;
-            border-bottom: 10px solid #888888;
-            content: "";
-            transform:rotate(-110deg);
-            -moz-transform:rotate(-110deg);
-            -webkit-transform:rotate(-110deg);
-            -ms-transform:rotate(-110deg);
-            -o-transform:rotate(-110deg);
+            text-shadow: 0 1px 1px #DEDEDE,0 -1px 1px #A3A3A3;
         }
-    </style>
+</style>
 </head>
-
 <body>
-
 <div class="main-content">
     <div class="content">
-        <span class="star-content">
-            <i class="star-five">
-            </i>
-        </span>
-        <span class="text">
-            CHECKOUT
-        </span>
-        <span class="star-content">
-            <i class="star-five">
-            </i>
-        </span>
+        <div class="content-item">
+            <span class="star-five">
+                ★
+            </span>
+                <span class="text">
+                CHECKOUT
+            </span>
+                <span class="star-five">
+                ★
+            </span>
+        </div>
     </div>
 </div>
 
