@@ -157,6 +157,7 @@
         //判断是否真的移动了
         const reallyMove = initDownXY.x !== e.clientX || initDownXY.y !== e.clientY;
         if (isDown && reallyMove ) {
+        // if (isDown) {
             switch (eventEmitter) {
                 case 'rectangle':
                     drag(e);
