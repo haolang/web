@@ -8,7 +8,7 @@
 ctrl + alt + p
 
 ### 借助paste image 插件 以github作为图床粘贴图片
-1. 在github和本地均可以使用相对地址展示图片
+- 在github和本地均可以使用**相对地址**展示图片
 
 - paste image 插件设置如下
 
