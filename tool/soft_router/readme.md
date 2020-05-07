@@ -54,34 +54,23 @@ sed -i 's/\r//' filename #转换为Unix格式即可
 ```
 
 ## 利用 CloudFlare API 实现自动 DDNS 功能|支持IPv4|IPv6
-参考链接：
+###参考链接：
  - [shell脚本参考](https://vircloud.net/operations/cf-ddns.html)
- - [官方api文档](https://api.cloudflare.com/#getting-started-resource-ids)
+ - [cloudflare官方api文档](https://api.cloudflare.com/#getting-started-resource-ids)
 
-> 若出现以下错误提示
-```shell script
-if [ -f $id_file ] && [ $(wc -l $id_file | cut -d " " -f 1) == 2 ]; then
-    zone_identifier=$(head -1 $id_file)
-    record_identifier=$(tail -1 $id_file)
-else
-#若不删除上面部分会出现以下错误提示，原因未知
-API UPDATE FAILED. DUMPING RESULTS:
-{"success":false,"errors":[{"code":7003,"message":"Could not route to \/zones\/dns_records, perhaps your object identifier is invalid?"},{"code":"7000","message":"No route for that URI"}],"messages":[],"result":null}
-```
 
-./XXX.sh 执行
-
-代码如下
+###代码如下
 ```shell script
 #!/bin/bash
-auth_email="haolangtaiye@gmail.com"
+auth_email="youemail@mail.com"
 auth_key="*********"
 record_name="example.com"
 # ipv6 为 AAAA记录 ，ipv4 为 A 记录
-record_type="AAAA"  
+record_type="AAAA"
+
+# ip 的获取要根据实际情况修改  
 ip=$(ifconfig br-lan |grep inet6|grep Global|grep -v /60|awk '{print $3}'|awk -F/ '{print $1}')
 ip_file="ip.txt"
-id_file="cloudflare.ids"
 
 # 判断 IP 是否变化
 old_ip=$(cat $ip_file)
@@ -96,5 +85,16 @@ echo "$zone_identifier" > $id_file
 echo "$record_identifier" >> $id_file
 curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$zone_identifier/dns_records/$record_identifier" -H "X-Auth-Email: $auth_email" -H "X-Auth-Key: $auth_key" -H "Content-Type: application/json" --data "{\"id\":\"$zone_identifier\",\"type\":\"$record_type\",\"name\":\"$record_name\",\"content\":\"$ip\"}"
 # 保存变化后的ip
-echo "$ip"> $ip_file
+echo "$ip" > $ip_file
+```
+
+> 修改前错误出现错误:API UPDATE FAILED. DUMPING RESULTS
+```shell script
+if [ -f $id_file ] && [ $(wc -l $id_file | cut -d " " -f 1) == 2 ]; then
+    zone_identifier=$(head -1 $id_file)
+    record_identifier=$(tail -1 $id_file)
+else
+#若不删除上面部分会出现以下错误提示，原因未知
+API UPDATE FAILED. DUMPING RESULTS:
+{"success":false,"errors":[{"code":7003,"message":"Could not route to \/zones\/dns_records, perhaps your object identifier is invalid?"},{"code":"7000","message":"No route for that URI"}],"messages":[],"result":null}
 ```
