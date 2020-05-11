@@ -133,3 +133,41 @@ chmod a+rx /jffs/scripts/init-start
 [参考链接](https://github.com/fatedier/frp/blob/master/README_zh.md)
 
 ![](.readme_images/frp-openwrt.png)
+
+服务端 frp 自启动 (服务端配置在搬瓦工)
+[参考链接](https://www.jianshu.com/p/22d6b32cfe82)
+
+使用 systemctl 自动启动 frp 服务
+```shell script
+nano /lib/systemd/system/frp.service 
+# frp.service  文件写入内容如下
+[Unit]
+Description=frp service
+After=network.target syslog.target
+Wants=network.target
+
+[Service]
+Type=simple
+# 服务端
+ExecStart=/your path/frps -c /your path/frp/frps.ini
+# 客户端
+# ExecStart=/root/frp/frpc -c /root/frp/frpc.ini
+
+[Install]
+WantedBy=multi-user.target
+```
+#### frp 相关命令
+```shell script
+# 启动frp
+sudo systemctl start frp
+# 开机自启动 
+sudo systemctl enable frp
+# 重启
+sudo systemctl restart frp
+# 停止
+sudo systemctl stop frp
+# 查看日志
+sudo systemctl status frp
+```
+
+> 使用nps穿透服务端安装运行后毫无反应，原因未知，遂更换为frp
