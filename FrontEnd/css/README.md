@@ -41,3 +41,28 @@
 document.getElementById("#anchor").scrollIntoView();  //scrollIntoView 参数可以控制滚动效果   
 </script>
 ```
+
+# 多个单行文字内容自适应宽度，居中显示 
+
+```html
+<div>
+    <p>asdf</p>
+    <p>asdfas</p>
+</div>
+<div>
+    <p>asdfas</p>
+    <p>asdfa</p>
+</div>
+<style>
+.div {
+   text-align: center;  // div所在行总体居中
+}
+
+.div p {
+   display: inline-block;  //可以使得内容自适应宽度
+}
+</style>
+```
+
+
+### 兄弟选择器 ‘+’ 配合  margin-left，可轻松时间等间距分割
