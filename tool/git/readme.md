@@ -9,5 +9,7 @@ mv .\junit5-master\* junit5
 cd junit5
 git init
 ```
+>.git 文件保护git提交信息，基本流程为下载github .git文件夹，拷贝.git文件夹到解压缩目录
+
 # webstorm 上传代码到gitee
 [参考链接](https://www.jianshu.com/p/1f1e29ea7660)
