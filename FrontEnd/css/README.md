@@ -66,3 +66,6 @@ document.getElementById("#anchor").scrollIntoView();  //scrollIntoView 参数可
 
 
 ### 兄弟选择器 ‘+’ 配合  margin-left，可轻松时间等间距分割
+
+# 全局font-size会影响表单input间距
+父级元素添加 font-size属性消除或input使用flex可以消除
