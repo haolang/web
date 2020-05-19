@@ -69,3 +69,5 @@ document.getElementById("#anchor").scrollIntoView();  //scrollIntoView 参数可
 
 # 全局font-size会影响表单input间距
 父级元素添加 font-size属性消除或input使用flex可以消除
+
+# absolute 绝对定位是相对定位时相对于第一个设置为 relative 的父元素定位
