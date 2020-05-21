@@ -71,3 +71,15 @@ document.getElementById("#anchor").scrollIntoView();  //scrollIntoView 参数可
 父级元素添加 font-size属性消除或input使用flex可以消除
 
 # absolute 绝对定位是相对定位时相对于第一个设置为 relative 的父元素定位
+
+# 快速调试代码
+页面右侧出现大量空白，使用如下方法找出溢出元素限制宽度修复bug 
+```css
+* {
+    background: #000 !important;
+    color: #0f0 !important;
+    outline: solid #f00 1px !important;
+}
+```
+>使用效果如下
+![](.README_images/4a89ec18.png)
