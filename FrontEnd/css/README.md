@@ -103,3 +103,14 @@ input, select{
     overflow-y: scroll;
 }
 ```
+
+# 单词间距与字符间距
+```css
+.text {
+    /*字符间有空格有效*/
+    word-spacing: 0.05rem;
+    /*对单个中文字或者英文字母起效*/
+    letter-spacing: 0.05rem;
+}
+
+```
