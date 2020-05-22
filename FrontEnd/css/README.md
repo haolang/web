@@ -83,3 +83,23 @@ document.getElementById("#anchor").scrollIntoView();  //scrollIntoView 参数可
 ```
 >使用效果如下
 ![](.README_images/4a89ec18.png)
+
+
+# input, select 的默认盒子模型不一样
+```css
+input, select{
+    /*统一input 和select默认样式，避免宽度和高度不一致*/
+    box-sizing: border-box;
+}
+```
+
+# 如何让 fixed 超出部分滚动
+
+```css
+.fixed{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    overflow-y: scroll;
+}
+```
