@@ -23,3 +23,20 @@ ctrl + alt + p
 ```
 
 ![2020-04-20-22-30-44.png](img/2020-04-20-22-30-44.png)
+
+
+# 在webstrom中 配置 autoprefixer 
+
+需要修改 
+
+// Default browsers query
+在 ***npm\node_modules\autoprefixer\node_modules\browserslist 文件夹下的 index.js 文件中
+browserslist.defaults = [
+  '> 1%',
+  'last 2 versions',
+  'Firefox ESR'
+]
+
+使用命令
+postcss.cmd -u autoprefixer -o F:\www\studing\web\test.css F:\www\studing\web\test.css
+地址需要替换 '\' 为 '/',否则报错 **Input Error: You must pass a valid list of files to parse**
