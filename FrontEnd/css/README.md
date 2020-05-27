@@ -114,3 +114,15 @@ input, select{
 }
 
 ```
+
+# 去掉input标签type=number时出现的箭头
+```css
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+ 
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+```
