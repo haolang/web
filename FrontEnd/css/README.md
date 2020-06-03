@@ -126,3 +126,9 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 ```
+# css3使用 transform 出现字体模糊的解决办法
+[参考链接](https://juejin.im/post/5ab1fbd6518825557b4c9f5d)
+使用 element-ui时 轮播使用 transform 轮播实现，
+轮播切换时意外导致了页面部分字体元素模糊抖动的情况
+transform: translateZ(0); #可以去掉抖动
+z-index: 1 可以解决字体模糊的问题
