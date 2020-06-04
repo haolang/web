@@ -13,3 +13,10 @@
 }
 </style>
 ```
+
+# 华为自带浏览器 vue 兼容性问题
+可以在ie9中打开，查看控制台是否有兼容性报错，尝试兼容到 ie9 华为自带浏览器的低版本兼容性应该也就解决了
+添加以下代码解决
+```html
+<script src="https://cdn.bootcss.com/babel-polyfill/6.23.0/polyfill.min.js" type="text/javascript" charset="utf-8"></script>
+```
