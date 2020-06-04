@@ -132,3 +132,21 @@ input[type="number"] {
 轮播切换时意外导致了页面部分字体元素模糊抖动的情况
 transform: translateZ(0); #可以去掉抖动
 z-index: 1 可以解决字体模糊的问题
+
+# css3 placeholder 字体颜色大小
+```css
+::-webkit-input-placeholder { /* WebKit browsers */
+  color: #999;
+  font-size: 16px;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #999;
+  font-size: 16px;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: #999;
+  font-size: 16px;
+} 
+```  

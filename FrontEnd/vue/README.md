@@ -13,3 +13,9 @@
 }
 </style>
 ```
+
+# 华为自带浏览器 vue 兼容性问题
+添加以下代码解决
+```html
+<script src="https://cdn.bootcss.com/babel-polyfill/6.23.0/polyfill.min.js" type="text/javascript" charset="utf-8"></script>
+```
