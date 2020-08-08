@@ -150,3 +150,140 @@ z-index: 1 可以解决字体模糊的问题
   font-size: 16px;
 } 
 ```  
+
+#样式继承性 
+* 关于文字样式的属性，都具有继承性。这些属性包括：color、 text-开头的、line-开头的、font-开头的。
+* 关于盒子、定位、布局的属性，都不能继承。
+
+chrome 中点击Inherited from *** 即可快速定位属性继承源
+
+![chrome 查看继承](.README_images/999687ad.png)
+
+**!important无法提升继承的权重**
+# 行内元素和块级元素
+
+**行内元素无法设置高宽**
+
+![](.README_images/3ccc1e1e.png)
+
+## 浮动
+1. 一旦设置为浮动之后，即使不转成块级元素，也能够设置宽高了。
+2. 所有标签，浮动之后，已经不区分行内、块级了
+3. 标准流中的文字不会被浮动的盒子遮挡住
+4. 一个浮动的元素，如果没有设置width，那么将自动收缩为内容的宽度
+5. 如果一个元素要浮动，那么它的祖先元素一定要有高度。有高度的盒子，才能关住浮动。
+6. clear:both的意思就是：不允许左侧和右侧有浮动对象(它所在的标签如果没有高度，则margin属性会失效)
+7. （偏方）浮动元素撑高父元素可以在父元素上使用 overflow:hidden;并且能够让margin生效 
+8. 脱离文档流，但不脱离文本流（文本会环绕浮元素）
+## margin
+如果要表达父子之间的距离，我们一定要善于使用父亲的padding，而不是儿子的margin
+# z-index
+只有定位了的元素，才能有z-index值。也就是说，不管相对定位、绝对定位、固定定位，都可以使用z-index值。而浮动的元素不能用。
+# 结构伪类选择器
+* E:nth-child(n) 匹配父元素的第n个子元素E。注意，盒子的编号是从1开始算起，不是从0开始算起。
+* E:nth-last-child(n) 匹配父元素的倒数第n个子元素E。
+# 伪对象选择符
+![](.README_images/96552fbe.png)
+# 过渡
+* transition-property: all; 如果希望所有的属性都发生过渡，就使用all。
+
+* transition-timing-function: linear; 运动曲线。属性值可以是：
+
+* linear 线性
+    * ease 减速
+    * ease-in 加速
+    * ease-out 减速
+    * ease-in-out 先加速后减速
+* transition-delay: 1s; 过渡延迟。多长时间后再执行这个过渡动画。
+## 透视
+/* 透视 :加给变换的父盒子*/
+/* 设置的是用户的眼睛距离 平面的距离*/
+/* 透视效果只是视觉上的呈现，并不是正真的3d*/
+perspective: 110px;
+## translateZ
+```css
+body {
+    /* 给box的父元素加透视效果*/
+    perspective: 1000px;
+}
+/* translateZ必须配合透视来使用*/
+.box:hover {
+    /* translateZ必须配合透视来使用*/
+    transform: translateZ(400px);
+}
+/*上方代码中，如果不加透视属性，是看不到translateZ的效果的。*/
+```
+## 动画
+// 调用动画
+//animation: 动画名称 持续时间  执行次数  是否反向  运动曲线 延迟执行。infinite 表示无限次
+//animation: move 1s  alternate linear 3;
+animation: move2 4s;
+## steps()的效果
+// 动画过渡过程中过渡几帧，类似定格动画，可以用了做时钟秒表
+animation: move2 4s steps(2);
+```css
+/*时钟秒表*/
+div {
+    width: 3px;
+    height: 200px;
+    background-color: #000;
+    margin: 100px auto;
+    transform-origin: center bottom;    /* 旋转的中心点是底部 */
+    animation: myClock 60s steps(60) infinite;
+}
+
+@keyframes myClock {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+```
+# inline-block
+div1和div2设置为 inline-block之后，这两个盒子之间存在了间隙。
+这是因为，此时的 div1和div2 已经被当成文本了。文本和文本之间，本身就会存在间隙。
+1. 使用父元素 font-size:0;消除间隙
+2. <div class="inline-block"></div><div class="inline-block"></div>  inline-block 元素盒子不换行写
+
+# 字体 
+推荐写法 ：
+font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+
+# 水平垂直居中 
+1. 当我们给父容器使用 Flex 布局 时，子元素的margin: auto不仅能让其在水平方向上居中，垂直方向上也是居中的。
+2. top: 50%; left: 50%; transform: translate(-50%, -50%);
+# 其他技巧
+## 让文字只显示一行，超出显示省略号
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
+##通过CSS扩大点击热区
+```css
+.button {
+	position: relative;
+	/* [其余样式] */
+}
+/*伪元素可以代表其宿主元素来响应鼠标交互。*/
+.button::before {
+	content: '';
+	position: absolute;
+	top: -10px;
+	right: -10px;
+	bottom: -10px;
+	left: -10px;
+}
+```
+* 注意: 由::before 和::after 生成的伪元素 包含在元素格式框内， 因此不能应用在替换元素上， 比如<img>或<br> 元素。
+
+## 伪类和伪元素的区别是什么？
+概念上的区别：
+* 伪类表示一种状态
+* 伪元素是真的有元素。比如 ::after 是真的有元素，可以在页面上显示内容。
+使用上的区别：
+* 伪类：使用单冒号
+
+* 伪元素：使用双冒号
