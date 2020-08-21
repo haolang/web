@@ -27,3 +27,7 @@ p {
     letter-spacing: 4px;
 }
 ```
+
+# video
+iss 服务器使用video标签无法播放map4类型视频,添加MIME解决
+[参考链接](https://blog.csdn.net/lihuang319/article/details/7228888?fps=1&locationNum=7)
