@@ -13,3 +13,8 @@ git init
 
 # webstorm 上传代码到gitee
 [参考链接](https://www.jianshu.com/p/1f1e29ea7660)
+
+# 撤销最近一次commit
+```shell script
+git reset --soft HEAD~1
+```
