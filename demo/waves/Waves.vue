@@ -1,13 +1,8 @@
 <template>
-  <div class="Waves">
+  <div data-tname="WaveItem">
     <div class="main-container">
       <div class="waves">
-        <div
-          class="wave"
-          v-for="(item, key) in waves"
-          :key="key"
-          :style="{ ...item }"
-        >
+        <div class="wave" v-for="(item, key) in waves" :key="key" :style="item">
           <div
             v-for="n in wavesConfig.total"
             :key="n"
@@ -16,7 +11,9 @@
               transform: `scale(${0.1 * Math.sqrt(n - 1)})`, // 使得波纹大小指数增长
               opacity: 0.3 * (1 / n), // 因为相互层叠的波纹透明度会相互叠加，需要越小的波纹透明度越低，以免中心颜色过重
               animationDelay: `${(n - 1) * 0.12}s`, // 越大的波纹越晚出现，以呈现波纹逐渐扩散的效果
-              animationDuration: `${0.6 + n * 0.3}s`, // 波纹动画时间渐增，表现波纹向外扩散渐慢的效果
+              animationDuration: `${0.6 +
+                n * 0.3 +
+                parseInt(item.width) * 0.002}s`, // 波纹动画时间渐增，表现波纹向外扩散渐慢的效果,波纹尺寸越大动画时间越长。
               backgroundColor: wavesConfig.waveColor
             }"
           ></div>
@@ -28,33 +25,28 @@
 
 <script>
 export default {
-  name: "Waves",
+  name: "WaveItem",
   data() {
     return {
       waves: [],
       wavesConfig: {
-        maxSize: 200, // px，波纹最大尺寸
+        maxSize: 300, // px，波纹最大尺寸
         minSize: 100, // px，波纹最小尺寸
-        zIndexCount: 999, // 波纹父元素其实z-index数值
-        waveColor: "#40b6f0", //波纹基础颜色
+        zIndexCount: 999, // 波纹父元素其z-index数值
+        waveColor: "#3E8CE3", //波纹基础颜色
         total: 5 //波纹圈层数
       },
-      clickedCount: 0 //统计点击次数
+      clear: {
+        delay: 5000,
+        timeoutId: null
+      }
     };
   },
   mounted() {
     document.getElementById("app").onclick = e => {
-      this.clickedCount++; // 统计点击次数
       this.createWave(e);
+      this.intervalClearWave();
     };
-    let lastCount = 0;
-    // 2秒内无点击清空waves，防止过多的dom累积占用内存
-    setInterval(() => {
-      if (lastCount === this.clickedCount) {
-        this.waves = [];
-      }
-      lastCount = this.clickedCount;
-    }, 2000);
   },
   methods: {
     createWave(e) {
@@ -67,7 +59,7 @@ export default {
       // 在一定范围内随机生成波纹的大小
       const waveSize = parseInt(
         Math.random() * (this.wavesConfig.maxSize - this.wavesConfig.minSize) +
-          this.wavesConfig.minSize
+        this.wavesConfig.minSize
       );
       //添加新的波纹数据
       this.waves.push({
@@ -77,6 +69,12 @@ export default {
         width: `${waveSize}px`,
         height: `${waveSize}px`
       });
+    },
+    intervalClearWave() {
+      clearTimeout(this.clear.timeoutId);
+      this.clear.timeoutId = setTimeout(() => {
+        this.waves = [];
+      }, this.clear.delay);
     }
   }
 };
