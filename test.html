@@ -42,9 +42,20 @@
   </div>
 </div>
 <script type="text/javascript">
-let test = new String('sdfgsdf');
-// test.aaa = 124;
-console.log(test.valueOf());
+let animationFrameID = null;
+let lastTime = new Date().getTime();
+function loop() {
+  window.cancelAnimationFrame(animationFrameID);
+  animationFrameID = window.requestAnimationFrame(() => {
+    const nowTime = new Date().getTime();
+    console.log(nowTime - lastTime )
+    lastTime = nowTime;
+    // 动画
+  });
+}
+// 模拟定时调用
+setInterval(()=>{loop();},1)
+
 
 </script>
 </body>
