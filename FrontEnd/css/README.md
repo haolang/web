@@ -287,3 +287,24 @@ font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans G
 * 伪类：使用单冒号
 
 * 伪元素：使用双冒号
+
+# 径向渐变实现任意大小背景圆点
+1. 使用透明色紧接透明色的渐变即可实现圆点
+2. 渐变半径刚好为背景大小一半时，圆点刚好填满背景大小，即 71% （1 / √2 ≈ 0.71）
+
+```css
+.point-bg {
+    background-image: radial-gradient(red 71%, transparent 0); 
+    background-size: 100px 100px;
+    background-repeat: no-repeat;     
+}
+```
+> 结果如下
+
+![](.README_images/d5572712.png)
+
+*tips: 渐变函数生成的结果等同于图片，可以将其作为背景图片操作，实现自定义 ul>li 的 list-style 图标*
+
+实现效果如下：
+
+![](.README_images/28bcdc89.png)
