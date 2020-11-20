@@ -14,7 +14,7 @@
 
 > 代码如下
 
-```html
+```html 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,13 +74,11 @@ new Vue({
     }
   },
   methods: {
-    getImageSize(i) {
+    getImageSize(imageSrc) {
       let img = new Image();
-      img.src = `${this.imagesBaseUrl}/i${i}.jpg`;
+      img.src = imageSrc;
       //获取图片尺寸
       img.onload = () => {
-        // 使用push的方式添加数据，避免图片异步加载导致页面闪动,但会导致每次加载图片的顺序不一致
-        // 想要图片每次加载的顺序一致，且页面不闪动，可以使用同步加载图片的方式。或者图片尺寸数据由后端给出，图片加载前就固定好容器尺寸。
         this.imageArraySize.push( {
           src: img.src,
           width: img.width,
@@ -91,7 +89,8 @@ new Vue({
   },
   mounted() {
     for (let i = 0; i < this.imageSum; i++) {
-      this.getImageSize(i);
+      const imageSrc = `${this.imagesBaseUrl}/i${i}.jpg`；
+      this.getImageSize(imageSrc);
     }
   }
 })
@@ -100,8 +99,13 @@ new Vue({
 
 ```
 
+      
+> 图片容器 image-box style 解释
 
+1. width: `${image.width * 200 / image.height}px` 保证图片高度以200px为基准
 
+2. flexGrow: image.width/image.height 这行代码可以理解为 (image.width/image.height)/(image.height/image.height)
+即图片的高宽同时除以高度，图片高度均为1时，图片宽度即为整行所占比，及flex-grow的值
 
 
 
