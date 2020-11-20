@@ -1,3 +1,20 @@
+# flex 完美实现 横向瀑布流 页面布局
+
+# 布局特点
+1. 代码简单
+2. 图片完整展示，不会被裁切
+3. 以图片异步加载完毕的顺序渲染图片，防止页面闪动
+4. 最后一行图片过少时，图片不会被放大得很大
+
+
+[在线预览 https://haolang.github.io/web/demo/500px/](https://haolang.github.io/web/demo/500px/)
+
+> 效果如下
+![展示效果](.README_images/a08295db.png)
+
+> 代码如下
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,6 +79,8 @@ new Vue({
       img.src = `${this.imagesBaseUrl}/i${i}.jpg`;
       //获取图片尺寸
       img.onload = () => {
+        // 使用push的方式添加数据，避免图片异步加载导致页面闪动,但会导致每次加载图片的顺序不一致
+        // 想要图片每次加载的顺序一致，且页面不闪动，可以使用同步加载图片的方式。或者图片尺寸数据由后端给出，图片加载前就固定好容器尺寸。
         this.imageArraySize.push( {
           src: img.src,
           width: img.width,
@@ -78,3 +97,14 @@ new Vue({
 })
 </script>
 </html>
+
+```
+
+
+
+
+
+
+[参考链接](https://github.com/xieranmaya/blog/issues/6)
+
+[参考demo](https://jsbin.com/tisaluy/6/edit?html,css,output)
