@@ -1,13 +1,11 @@
-#77行代码 完美实现图片完整展示 flex 横向瀑布流布局
-
 ## 布局特点
-1. 代码简单
-2. 图片完整展示，不会被裁切
-3. 以图片异步加载结束时间的顺序渲染图片，防止页面闪动
-4. 最后一行图片过少时，图片不会被放大得很大
+1. 代码简单，完整代码仅仅75行
+2. 图片完整展示，不会被裁切，等比缩放，而非拉伸
+3. 以图片异步加载结束时间的顺序渲染图片，防止页面过大闪动
+4. 最后一行图片过少时，图片正常显示，不会缩放占满整行
 
 
-**tips: github 加载较慢正好可以观察图片加载渲染过程**
+**tips: github 图片加载较慢正好可以观察图片加载渲染过程**
 
 [在线预览(github) https://haolang.github.io/web/demo/500px/](https://haolang.github.io/web/demo/500px/)
 
@@ -15,7 +13,7 @@
 
 > 效果如下
 
-![展示效果](.README_images/a08295db.png)
+![在这里插入图片描述](./README_images/a08295db.png)
 
 > 代码如下
 
@@ -31,6 +29,11 @@
     display: flex;
     flex-wrap: wrap;
   }
+  /*占位元素，最后一行图片过少时，图片不缩放*/
+  .primary::after {
+    content: '';
+    flex-grow: 999999999;
+  }
   .image-box {
     /*flex-grow: 1;*/
     margin: 5px;
@@ -39,11 +42,6 @@
   .image-box img {
     display: block;
     width: 100%;
-  }
-  .image-box.placeholder {
-    width: 300px;
-    height: 0;
-    margin: 0;
   }
   </style>
 </head>
@@ -60,8 +58,6 @@
   >
     <img :src="image.src" alt="">
   </div>
-  <!--    占位元素，使得视觉上最后一行实际上不是最后一行,防止最后一行图片过少时，图片被放大过大-->
-  <div v-for="n in 5" class="image-box placeholder"></div>
 </div>
 </body>
 <script>
@@ -80,7 +76,7 @@ new Vue({
       img.src = imageSrc;
       //获取图片尺寸
       img.onload = () => {
-        this.imageArraySize.push( {
+        this.imageArraySize.push({
           src: img.src,
           width: img.width,
           height: img.height
@@ -90,7 +86,7 @@ new Vue({
   },
   mounted() {
     for (let i = 0; i < this.imageSum; i++) {
-      const imageSrc = `${this.imagesBaseUrl}/i${i}.jpg`；
+      const imageSrc = `${this.imagesBaseUrl}/i${i}.jpg`;
       this.getImageSize(imageSrc);
     }
   }
@@ -113,6 +109,8 @@ new Vue({
 1. 由于图片异步加载的原因，图片每次渲染的顺序可能不一致
 2. 可以使用同步加载图片的方式使得每次图片渲染的顺序一致，但是会导致图片一张张加载，加载速度可能会变慢
 3. 想要保证图片顺序一致，同时图片异步加载此方案也可以实现，但是由于图片不断插入撑开容器，会导致页面在图片加载完毕之前不断闪动。
+4. 即使以图片异步加载完成时间顺序加载图片，一行图加载结束前，无法提前预知图片最终高度，每一行在加载时依旧有小幅页面闪动，但已加载完成的行，不会再闪动。
+
 
 > 参考链接中的方案使用后台图片尺寸数据占位，防止页面闪动
 

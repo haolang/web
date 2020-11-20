@@ -9,22 +9,19 @@
     display: flex;
     flex-wrap: wrap;
   }
-
+  /*占位元素，最后一行图片过少时，图片不缩放*/
+  .primary::after {
+    content: '';
+    flex-grow: 999999999;
+  }
   .image-box {
     /*flex-grow: 1;*/
     margin: 5px;
     display: block;
   }
-
   .image-box img {
     display: block;
     width: 100%;
-  }
-
-  .image-box.placeholder {
-    width: 300px;
-    height: 0;
-    margin: 0;
   }
   </style>
 </head>
@@ -41,9 +38,6 @@
   >
     <img :src="image.src" alt="">
   </div>
-  <!--    占位元素，使得视觉上最后一行实际上不是最后一行,防止最后一行图片过少时，图片被放大过大-->
-  <div v-for="n in 5" class="image-box placeholder"></div>
-
 </div>
 </body>
 <script>
@@ -62,7 +56,7 @@ new Vue({
       img.src = imageSrc;
       //获取图片尺寸
       img.onload = () => {
-        this.imageArraySize.push( {
+        this.imageArraySize.push({
           src: img.src,
           width: img.width,
           height: img.height
