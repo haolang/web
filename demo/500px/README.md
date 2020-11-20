@@ -68,7 +68,7 @@ new Vue({
   el: '#app',
   data() {
     return {
-      imagesBaseUrl: './image',
+      imagesBaseUrl: './images',
       imageSum: 28,
       imageArraySize: []
     }
