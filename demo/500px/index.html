@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+  .primary {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .image-box {
+    /*flex-grow: 1;*/
+    margin: 5px;
+    display: block;
+  }
+
+  .image-box img {
+    display: block;
+    width: 100%;
+  }
+
+  .image-box.placeholder {
+    width: 300px;
+    height: 0;
+    margin: 0;
+  }
+  </style>
+</head>
+<body>
+<div id="app" class="primary">
+  <div
+    v-for="(image,key) in imageArraySize"
+    :key="key"
+    class="image-box"
+    :style="{
+      width: `${image.width * 200 / image.height}px`,
+      flexGrow: image.width/image.height
+    }"
+  >
+    <img :src="image.src" alt="">
+  </div>
+  <!--    占位元素，使得视觉上最后一行实际上不是最后一行,防止最后一行图片过少时，图片被放大过大-->
+  <div v-for="n in 5" class="image-box placeholder"></div>
+
+</div>
+</body>
+<script>
+new Vue({
+  el: '#app',
+  data() {
+    return {
+      imagesBaseUrl: './',
+      imageSum: 28,
+      imageArraySize: []
+    }
+  },
+  methods: {
+    getImageSize(i) {
+      let img = new Image();
+      img.src = `${this.imagesBaseUrl}image/i${i}.jpg`;
+      //获取图片尺寸
+      img.onload = () => {
+        this.imageArraySize.push( {
+          src: img.src,
+          width: img.width,
+          height: img.height
+        });
+      }
+    }
+  },
+  mounted() {
+    for (let i = 0; i < this.imageSum; i++) {
+      this.getImageSize(i);
+    }
+  }
+})
+</script>
+</html>
