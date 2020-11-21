@@ -22,23 +22,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <style>
   .primary {
     display: flex;
     flex-wrap: wrap;
   }
+
   /*占位元素，最后一行图片过少时，图片不缩放*/
   .primary::after {
     content: '';
     flex-grow: 999999999;
+    min-width: 200px; /*图片较少时换行，否则最后一行末尾可能会出现一小段空白*/
+    height: 0;
   }
+
   .image-box {
-    /*flex-grow: 1;*/
     margin: 5px;
     display: block;
   }
+
   .image-box img {
     display: block;
     width: 100%;
@@ -53,7 +56,7 @@
     class="image-box"
     :style="{
       width: `${image.width * 200 / image.height}px`,
-      flexGrow: image.width / image.height * 1000  
+      flexGrow: image.width / image.height * 1000
     }"
   >
     <img :src="image.src" alt="">
@@ -93,6 +96,7 @@ new Vue({
 })
 </script>
 </html>
+
 ```
 
       

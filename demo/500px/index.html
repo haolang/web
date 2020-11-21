@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <style>
   .primary {
@@ -13,9 +12,10 @@
   .primary::after {
     content: '';
     flex-grow: 999999999;
+    min-width: 200px; /*图片可以占满一行时保证换行，否则最后一行末尾可能会出现一小段空白*/
+    height: 0;
   }
   .image-box {
-    /*flex-grow: 1;*/
     margin: 5px;
     display: block;
   }
