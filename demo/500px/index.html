@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>完美flex横向瀑布流布局</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <style>
   .primary {
@@ -46,7 +47,6 @@ new Vue({
   data() {
     return {
       imagesBaseUrl: './images',
-      imageSum: 28,
       imageArraySize: []
     }
   },
@@ -65,7 +65,7 @@ new Vue({
     }
   },
   mounted() {
-    for (let i = 0; i < this.imageSum; i++) {
+    for (let i = 0; i < 28; i++) {
       const imageSrc = `${this.imagesBaseUrl}/i${i}.jpg`;
       this.getImageSize(imageSrc);
     }
