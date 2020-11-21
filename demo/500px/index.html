@@ -33,7 +33,7 @@
     class="image-box"
     :style="{
       width: `${image.width * 200 / image.height}px`,
-      flexGrow: image.width/image.height
+      flexGrow: image.width / image.height * 1000
     }"
   >
     <img :src="image.src" alt="">

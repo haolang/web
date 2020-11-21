@@ -53,7 +53,7 @@
     class="image-box"
     :style="{
       width: `${image.width * 200 / image.height}px`,
-      flexGrow: image.width/image.height
+      flexGrow: image.width / image.height * 1000  
     }"
   >
     <img :src="image.src" alt="">
@@ -100,8 +100,9 @@ new Vue({
 
 1. width: `${image.width * 200 / image.height}px` 保证图片高度以200px为基准
 
-2. flexGrow: image.width/image.height 这行代码可以理解为 (image.width/image.height)/(image.height/image.height)
-即图片的高宽同时除以高度，图片高度均为1时，图片宽度即为整行所占比，及flex-grow的值
+2. flexGrow: image.width/image.height * 1000 这行代码(image.width / image.height )部分可以理解为 (image.width/image.height) / (image.height/image.height) 
+即图片的高宽同时除以高度，图片高度均为1时，图片宽度即为整行所占比，即flex-grow的值,
+结果乘以1000 防止 flex-grow 的值小于1，当浏览器窗口很窄时,一张图片单独占据一行,若 flex-grow 小于1会，导致图片收缩不能占满一行
 
 
 ## 缺点
@@ -109,11 +110,11 @@ new Vue({
 1. 由于图片异步加载的原因，图片每次渲染的顺序可能不一致
 2. 可以使用同步加载图片的方式使得每次图片渲染的顺序一致，但是会导致图片一张张加载，加载速度可能会变慢
 3. 想要保证图片顺序一致，同时图片异步加载此方案也可以实现，但是由于图片不断插入撑开容器，会导致页面在图片加载完毕之前不断闪动。
-4. 即使以图片异步加载完成时间顺序加载图片，一行图加载结束前，无法提前预知图片最终高度，每一行在加载时依旧有小幅页面闪动，但已加载完成的行，不会再闪动。
+4. 本文示例代码使用异步加载完成时间顺序加载图片，一行图片加载结束前，无法提前预知此行的最终高度，每一行在加载时依旧有小幅页面闪动，但已加载完成的行，不会再闪动。
 
 
 > 参考链接中的方案使用后台图片尺寸数据占位，防止页面闪动
 
-[参考链接](https://github.com/xieranmaya/blog/issues/6)
+[参考链接](https://github.com/xieranmaya/blog/issues/4)
 
 [参考demo](https://jsbin.com/tisaluy/6/edit?html,css,output)
