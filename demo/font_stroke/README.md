@@ -1,5 +1,13 @@
 # 纯css实现自定义字体描边
 
+## 前景提要
+搜索纯css文字描边未找到理想的实现方案，大多都是说使用 text-shadow 或 -webkit-text-stroke ，
+-webkit-text-stroke的描边文字的粗细不会变，类似于内描边，而  text-shadow 大小与原字体一样，
+直接使用无法实现描边，想到 box-shadow 可以叠加， 
+那么在多个方向上以一定偏移量多次叠加 text-shadow 不就是文字描边了吗，
+8个方向上叠加后8个文字阴影后有锯齿，总不能继续叠加更多的文字阴影消除锯齿，
+使用 text-shadow 的模糊属性消除锯齿即可。
+
 ## 实现原理
 1. 利用 text-shadow 可叠加的属性在同一半径内叠加多个 文字阴影实现，叠加出现的锯齿使用 text-shadow 模糊属性弱化
 2. 叠加的 text-shadow 越多，text-shadow 的边缘越平滑，本例中 text-shadow 每间隔45度叠加一次，共叠加8次（叠加8次时 text-shadow的 x y轴平移距离较易计算） 。
@@ -8,7 +16,7 @@
 
 [在线示例 gitee.io ](https://haolang.gitee.io/web/demo/font_stroke/)
 
-![](README_images/c46f534b.png)
+![](README_images/c50a11ac.png)
 
 ## 示例代码
 
