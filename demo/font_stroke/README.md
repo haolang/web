@@ -6,9 +6,9 @@
 
 ## 效果展示
 
-[在线示例 gitee.io ]()
+[在线示例 gitee.io ](https://haolang.gitee.io/web/demo/font_stroke/)
 
-![](README_images/c0638731.png)
+![](README_images/c46f534b.png)
 
 ## 示例代码
 

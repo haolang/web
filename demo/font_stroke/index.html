@@ -19,20 +19,9 @@
   .native-webkit-text-stroke {
     -webkit-text-stroke: 1px #32003C;
   }
-  /*上，右移动6px则 右上移动距离x,y 轴移动距离应该为 4px （6 / √2 ≈ 4.23 对角线长度为6的正方形的边长）  */
-  /*使用scss预处理器可以将 text-stroke 函数化*/
-  .text-stroke {
-    text-shadow: 0 -6px 4px #32003C, /*上*/
-    4px -4px 4px #32003C, /*右上*/
-    6px 0 4px #32003C, /*右*/
-    4px 4px 4px #32003C, /*右下*/
-    0 6px 4px #32003C, /*下*/
-    -4px 4px 4px #32003C, /*左下*/
-    -6px 0 4px #32003C, /*左*/
-    -4px -4px 4px #32003C; /*左上*/
-  }
 
   /*没有模糊的字体阴影*/
+  /*上，右移动6px则 右上移动距离x,y 轴移动距离应该为 4px （6 / √2 ≈ 4.23 对角线长度为6的正方形的边长）  */
   .text-stroke-no-blur {
     text-shadow: 6px 0 0 #32003C,
     -6px 0 0 #32003C,
@@ -42,6 +31,17 @@
     -4px 4px 0 #32003C,
     4px -4px 0 #32003C,
     -4px -4px 0 #32003C;
+  }
+
+  .text-stroke {
+    text-shadow: 0 -6px 4px #32003C, /*上*/
+    4px -4px 4px #32003C, /*右上*/
+    6px 0 4px #32003C, /*右*/
+    4px 4px 4px #32003C, /*右下*/
+    0 6px 4px #32003C, /*下*/
+    -4px 4px 4px #32003C, /*左下*/
+    -6px 0 4px #32003C, /*左*/
+    -4px -4px 4px #32003C; /*左上*/
   }
 
   .text-stroke-colours {
@@ -63,10 +63,10 @@
 <div class="native-webkit-text-stroke text">
   字体描边 | font stroke
 </div>
-<div class="text-stroke text">
+<div class="text-stroke-no-blur text">
   字体描边 | font stroke
 </div>
-<div class="text-stroke-no-blur text">
+<div class="text-stroke text">
   字体描边 | font stroke
 </div>
 <div class="text-stroke-colours text">
