@@ -6,6 +6,8 @@
 
 ## 效果展示
 
+[在线示例 gitee.io ]()
+
 ![](README_images/c0638731.png)
 
 ## 示例代码
@@ -88,7 +90,7 @@
 </html>
 ```
 
-tips： 本例中的 text-stroke 使用scss或less可以容易的函数话，方便使用
+tips： 本例中的 text-stroke 使用scss或less可以容易的函数化，方便直接调用使用
 > scss 示例
 ```scss
 /** 
