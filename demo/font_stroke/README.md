@@ -1,4 +1,4 @@
-# 纯css实现自定义字体描边
+# 纯css实现自定义文字描边
 
 ## 前景提要
 搜索纯css文字描边未找到理想的实现方案，大多都是说使用 text-shadow 或 -webkit-text-stroke ，
@@ -14,7 +14,7 @@
 
 ## 效果展示
 
-[在线示例 gitee.io ](https://haolang.gitee.io/web/demo/font_stroke/)
+[点击查看在线示例](https://haolang.gitee.io/web/demo/font_stroke/)
 
 ![](README_images/c50a11ac.png)
 
