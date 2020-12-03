@@ -1,13 +1,5 @@
 # 纯css实现自定义文字描边
 
-## 前景提要
-搜索纯css文字描边未找到理想的实现方案，大多都是说使用 text-shadow 或 -webkit-text-stroke ，
--webkit-text-stroke的描边文字的粗细不会变，类似于内描边，而  text-shadow 大小与原字体一样，
-直接使用无法实现描边，想到 box-shadow 可以叠加， 
-那么在多个方向上以一定偏移量多次叠加 text-shadow 不就是文字描边了吗，
-8个方向上叠加后8个文字阴影后有锯齿，总不能继续叠加更多的文字阴影消除锯齿，
-使用 text-shadow 的模糊属性消除锯齿即可。
-
 ## 实现原理
 1. 利用 text-shadow 可叠加的属性在同一半径内叠加多个 文字阴影实现，叠加出现的锯齿使用 text-shadow 模糊属性弱化
 2. 叠加的 text-shadow 越多，text-shadow 的边缘越平滑，本例中 text-shadow 每间隔45度叠加一次，共叠加8次（叠加8次时 text-shadow的 x y轴平移距离较易计算） 。
@@ -16,7 +8,7 @@
 
 [点击查看在线示例](https://haolang.gitee.io/web/demo/font_stroke/)
 
-![](README_images/c50a11ac.png)
+![](README_images/1d1992b4.png)
 
 ## 示例代码
 
@@ -25,7 +17,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>text-shadow 实现字体描边</title>
+  <title>纯css 实现字体描边</title>
   <style>
   .text {
     text-align: center;
@@ -36,25 +28,30 @@
   }
 
   .native-text-shadow {
-    text-shadow: 0 0 5px #32003C;
+    text-shadow: 0 0 4px #32003C;
   }
 
   .native-webkit-text-stroke {
-    -webkit-text-stroke: 1px #32003C;
+    -webkit-text-stroke: 4px #32003C;
   }
-  /*上，右移动6px则 右上移动距离x,y 轴移动距离应该为 4px （6 / √2 ≈ 4.23 对角线长度为6的正方形的边长）  */
-  .text-stroke {
-    text-shadow: 0 -6px 4px #32003C, /*上*/
-    4px -4px 4px #32003C, /*右上*/
-    6px 0 4px #32003C, /*右*/
-    4px 4px 4px #32003C, /*右下*/
-    0 6px 4px #32003C, /*下*/
-    -4px 4px 4px #32003C, /*左下*/
-    -6px 0 4px #32003C, /*左*/
-    -4px -4px 4px #32003C; /*左上*/
+  .improve-webkit-text-stroke {
+    -webkit-text-stroke: 8px #32003C;
+    position: relative;
+    z-index: 1;
+  }
+  .improve-webkit-text-stroke:after {
+    content: "字体描边 | font stroke";
+    color: #fff;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    top: 0;
+    -webkit-text-stroke-width: 0;
   }
 
   /*没有模糊的字体阴影*/
+  /*上，右移动6px则 右上移动距离x,y 轴移动距离应该为 4px （6 / √2 ≈ 4.23 对角线长度为6的正方形的边长）  */
   .text-stroke-no-blur {
     text-shadow: 6px 0 0 #32003C,
     -6px 0 0 #32003C,
@@ -64,6 +61,17 @@
     -4px 4px 0 #32003C,
     4px -4px 0 #32003C,
     -4px -4px 0 #32003C;
+  }
+
+  .text-stroke {
+    text-shadow: 0 -6px 4px #32003C, /*上*/
+    4px -4px 4px #32003C, /*右上*/
+    6px 0 4px #32003C, /*右*/
+    4px 4px 4px #32003C, /*右下*/
+    0 6px 4px #32003C, /*下*/
+    -4px 4px 4px #32003C, /*左下*/
+    -6px 0 4px #32003C, /*左*/
+    -4px -4px 4px #32003C; /*左上*/
   }
 
   .text-stroke-colours {
@@ -85,10 +93,13 @@
 <div class="native-webkit-text-stroke text">
   字体描边 | font stroke
 </div>
-<div class="text-stroke text">
+<div class="improve-webkit-text-stroke text">
   字体描边 | font stroke
 </div>
 <div class="text-stroke-no-blur text">
+  字体描边 | font stroke
+</div>
+<div class="text-stroke text">
   字体描边 | font stroke
 </div>
 <div class="text-stroke-colours text">
@@ -127,3 +138,18 @@ tips： 本例中的 text-stroke 使用scss或less可以容易的函数化，方
 }
 
 ```
+
+
+## 缺点
+不能实现没有模糊且平滑的描边，没有模糊的描边会有锯齿感
+
+## 背景
+搜索纯css文字描边未找到理想的实现方案，大多都是说使用 text-shadow 或 -webkit-text-stroke ，
+-webkit-text-stroke 的描边会同时向内和向外扩张文字看起来会变细，而  text-shadow 大小与原字体一样，直接使用无法实现描边，想到 box-shadow 可以叠加,搜索发现text-shadow 也可以叠加， 那么在多个方向上以一定偏移量多次叠加 text-shadow 不就是文字描边了吗，8个方向上叠加后8个文字阴影后有锯齿，总不能继续叠加更多的文字阴影消除锯齿，使用 text-shadow 的模糊属性消除锯齿即可。
+
+## 更新
+
+突然想到 -webkit-text-stroke 同时向内和向外扩张，利用没用 -webkit-text-stroke 相同字符的伪元素覆盖在有 -webkit-text-stroke 的字体之上看上去不就是只有向外扩张的描边了嘛
+实现看上面代码 css .improve-webkit-text-stroke 部分
+
+不过 -webkit-text-stroke 只能在webkit内核浏览器使用存在兼容性问题，而且 .improve-webkit-text-stroke 实现方法，文字改变得同步改变其伪元素文本内容（可用js改进）

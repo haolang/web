@@ -13,11 +13,26 @@
   }
 
   .native-text-shadow {
-    text-shadow: 0 0 5px #32003C;
+    text-shadow: 0 0 4px #32003C;
   }
 
   .native-webkit-text-stroke {
     -webkit-text-stroke: 4px #32003C;
+  }
+  .improve-webkit-text-stroke {
+    -webkit-text-stroke: 8px #32003C;
+    position: relative;
+    z-index: 1;
+  }
+  .improve-webkit-text-stroke:after {
+    content: "字体描边 | font stroke";
+    color: #fff;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    top: 0;
+    -webkit-text-stroke-width: 0;
   }
 
   /*没有模糊的字体阴影*/
@@ -61,6 +76,9 @@
   字体描边 | font stroke
 </div>
 <div class="native-webkit-text-stroke text">
+  字体描边 | font stroke
+</div>
+<div class="improve-webkit-text-stroke text">
   字体描边 | font stroke
 </div>
 <div class="text-stroke-no-blur text">
