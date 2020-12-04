@@ -1,4 +1,11 @@
-# 纯css实现自定义文字描边
+# 【html】【css】 6 种方式实现自定义文字描边，可能是全网最全的文字描边实现方式
+## 实现方式简介
+1. ( .native-text-shadow ) 直接使用 text-shadow 属性
+2. ( .multiple-text-shadow ) 多次叠加 text-shadow 使得描边随着叠加次数变清晰
+3. ( .native-webkit-text-stroke ) 直接使用 -webkit-text-stroke 属性
+4. ( .improve-webkit-text-stroke ) 配合 -webkit-text-stroke 属性使用伪元素文本覆盖带有描边的文字
+5. ( .svg-text-stroke ) 使用 svg 的 stroke 属性描边
+6. ( .improve-svg-text-stroke ) 使用 svg 配合 svg 的 use 覆盖 描边的 svg 的 text ，原理与 improve-webkit-text-stroke 类似
 
 ## 实现原理
 
@@ -9,11 +16,14 @@
 ### 下例中 .improve-webkit-text-stroke 的实现方式 
 1. 使用没有文字描边的文字覆盖有 -webkit-text-stroke 描边的文字实现描边
 
+### 下例中 .improve-svg-text-stroke 的实现方式 
+1. 实现方式与 .improve-webkit-text-stroke 类似，不再赘述
+
 ## 效果展示
 
 [点击查看在线示例](https://haolang.gitee.io/web/demo/font_stroke/)
 
-![](README_images/1d1992b4.png)
+![](README_images/5911611d.png)
 
 ## 示例代码
 
@@ -34,6 +44,16 @@
 
   .native-text-shadow {
     text-shadow: 0 0 4px #32003C;
+  }
+
+  .multiple-text-shadow {
+    text-shadow: 0 0 4px #32003C,
+    0 0 4px #32003C,
+    0 0 4px #32003C,
+    0 0 4px #32003C,
+    0 0 4px #32003C,
+    0 0 4px #32003C,
+    0 0 4px #32003C;
   }
 
   .native-webkit-text-stroke {
@@ -89,10 +109,32 @@
     -6px 0 4px #0021ff, /*左*/
     -4px -4px 4px #000000; /*左上*/
   }
+  .svg-text-stroke {
+    margin-top: 100px;
+  }
+  .svg-text-stroke svg,
+  .improve-svg-text-stroke svg {
+    overflow: visible;
+    height: 2em;
+  }
+  .svg-text-stroke text,
+  .improve-svg-text-stroke text{
+    text-anchor: middle; /*文本居中*/
+    fill: currentColor;  /*文本颜色*/
+  }
+  .svg-text-stroke text,
+  .improve-svg-text-stroke use{
+    stroke: #32003C;    /*描边颜色*/
+    stroke-width: 4px;  /*控制描边宽度*/
+    stroke-linejoin: round;  /*描边转角处理方式*/
+  }
   </style>
 </head>
 <body>
 <div class="native-text-shadow text">
+  字体描边 | font stroke
+</div>
+<div class="multiple-text-shadow text">
   字体描边 | font stroke
 </div>
 <div class="native-webkit-text-stroke text">
@@ -110,8 +152,22 @@
 <div class="text-stroke-colours text">
   字体描边 | font stroke
 </div>
+
+<div class="svg-text-stroke text">
+  <svg>
+    <text x='50%' >字体描边 | font stroke</text>
+  </svg>
+</div>
+<div class="improve-svg-text-stroke text">
+  <svg>
+    <!--use 会完全复制 text 中的内容-->
+    <use xlink:href="#text"></use>
+    <text x='50%' id="text">字体描边 | font stroke</text>
+  </svg>
+</div>
 </body>
 </html>
+
 ```
 
 tips： 本例中的 text-stroke 使用scss或less可以容易的函数化，方便直接调用使用
@@ -145,14 +201,18 @@ tips： 本例中的 text-stroke 使用scss或less可以容易的函数化，方
 ```
 
 
-## 缺点
+## 特点
 
 ### .improve-webkit-text-stroke 
 1. 只在webkit内核浏览器中有效果
 2. 文字内容必须与其伪元素同步
 
 ### .text-stroke 
-不能实现没有模糊且平滑的描边，没有模糊的描边会有锯齿感
+1. 没有模糊的描边会有锯齿感
+
+### .improve-svg-text-stroke 
+1. 与 .improve-webkit-text-stroke 相比use 会自动同步text中的内容
+2. 文本样式操作没有html文本方便
 
 ## 背景
 搜索纯css文字描边未找到理想的实现方案，大多都是说使用 text-shadow 或 -webkit-text-stroke ，
@@ -160,4 +220,5 @@ tips： 本例中的 text-stroke 使用scss或less可以容易的函数化，方
 
 ## 更新
 
-突然想到 -webkit-text-stroke 的描边虽然是同时向内和向外扩张，但利用没用 -webkit-text-stroke 描边的 相同字符覆盖在其之上，不就是正常的文字描边了嘛。实现看上面代码 css .improve-webkit-text-stroke 部分。
+1. 突然想到 -webkit-text-stroke 的描边虽然是同时向内和向外扩张，但利用没用 -webkit-text-stroke 描边的 相同字符覆盖在其之上，不就是正常的文字描边了嘛。实现看上面代码 css .improve-webkit-text-stroke 部分。
+2. 突然看到svg也可以实现文字描边，参考 .improve-webkit-text-stroke 相同的原理实现描边 

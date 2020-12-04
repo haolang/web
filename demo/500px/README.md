@@ -102,8 +102,7 @@ new Vue({
 
 2. flexGrow: image.width/image.height * 1000 这行代码(image.width / image.height )部分可以理解为 (image.width/image.height) / (image.height/image.height) 
 即图片的高宽同时除以高度，图片高度均为1时，图片宽度即为整行所占比，即flex-grow的值,
-结果乘以1000 防止 flex-grow 的值小于1，当浏览器窗口很窄时,一张图片单独占据一行,若 flex-grow 小于1会，导致图片收缩不能占满一行
-
+结果乘以1000 防止 flex-grow 的值小于1，因为当浏览器窗口很窄时,出现只能一张图片单独占据一行的情况,若 flex-grow 的值小于1会导致图片收缩不能占满一行。
 
 ## 缺点
 

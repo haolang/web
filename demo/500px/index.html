@@ -29,7 +29,7 @@
 <body>
 <div id="app" class="primary">
   <div
-    v-for="(image,key) in imageArraySize"
+    v-for="(image,key) in images"
     :key="key"
     class="image-box"
     :style="{
@@ -47,16 +47,16 @@ new Vue({
   data() {
     return {
       imagesBaseUrl: './images',
-      imageArraySize: []
+      images: []
     }
   },
   methods: {
-    getImageSize(imageSrc) {
+    getImage(imageSrc) {
       let img = new Image();
       img.src = imageSrc;
       //获取图片尺寸
       img.onload = () => {
-        this.imageArraySize.push({
+        this.images.push({
           src: img.src,
           width: img.width,
           height: img.height
@@ -67,7 +67,7 @@ new Vue({
   mounted() {
     for (let i = 0; i < 28; i++) {
       const imageSrc = `${this.imagesBaseUrl}/i${i}.jpg`;
-      this.getImageSize(imageSrc);
+      this.getImage(imageSrc);
     }
   }
 })

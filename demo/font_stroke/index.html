@@ -16,6 +16,16 @@
     text-shadow: 0 0 4px #32003C;
   }
 
+  .multiple-text-shadow {
+    text-shadow: 0 0 4px #32003C,
+    0 0 4px #32003C,
+    0 0 4px #32003C,
+    0 0 4px #32003C,
+    0 0 4px #32003C,
+    0 0 4px #32003C,
+    0 0 4px #32003C;
+  }
+
   .native-webkit-text-stroke {
     -webkit-text-stroke: 4px #32003C;
   }
@@ -58,7 +68,7 @@
     -6px 0 4px #32003C, /*左*/
     -4px -4px 4px #32003C; /*左上*/
   }
-
+  /*用于直观理解 .text-stroke 实现方式*/
   .text-stroke-colours {
     text-shadow: 0 -6px 4px #ff0000, /*上*/
     4px -4px 4px #46ff00, /*右上*/
@@ -69,10 +79,32 @@
     -6px 0 4px #0021ff, /*左*/
     -4px -4px 4px #000000; /*左上*/
   }
+  .svg-text-stroke {
+    margin-top: 100px;
+  }
+  .svg-text-stroke svg,
+  .improve-svg-text-stroke svg {
+    overflow: visible;
+    height: 2em;
+  }
+  .svg-text-stroke text,
+  .improve-svg-text-stroke text{
+    text-anchor: middle;
+    fill: currentColor;
+  }
+  .svg-text-stroke text,
+  .improve-svg-text-stroke use{
+    stroke: #32003C;
+    stroke-width: 4px;  /*控制描边宽度*/
+    stroke-linejoin: round;
+  }
   </style>
 </head>
 <body>
 <div class="native-text-shadow text">
+  字体描边 | font stroke
+</div>
+<div class="multiple-text-shadow text">
   字体描边 | font stroke
 </div>
 <div class="native-webkit-text-stroke text">
@@ -89,6 +121,18 @@
 </div>
 <div class="text-stroke-colours text">
   字体描边 | font stroke
+</div>
+
+<div class="svg-text-stroke text">
+  <svg>
+    <text x='50%' >字体描边 | font stroke</text>
+  </svg>
+</div>
+<div class="improve-svg-text-stroke text">
+  <svg>
+    <use xlink:href="#text">字体描边 | font stroke</use>
+    <text x='50%' id="text">字体描边 | font stroke</text>
+  </svg>
 </div>
 </body>
 </html>
