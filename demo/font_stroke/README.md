@@ -1,7 +1,7 @@
 # 【html】【css】 6 种方式实现自定义文字描边，可能是全网最全的文字描边实现方式
 ## 实现方式简介
 1. ( .native-text-shadow ) 直接使用 text-shadow 属性
-2. ( .multiple-text-shadow ) 多次叠加 text-shadow 使得描边随着叠加次数变清晰
+2. ( .multiple-text-shadow ) 多次叠加 text-shadow 使得"描边"随着叠加次数变清晰
 3. ( .native-webkit-text-stroke ) 直接使用 -webkit-text-stroke 属性
 4. ( .improve-webkit-text-stroke ) 配合 -webkit-text-stroke 属性使用伪元素文本覆盖带有描边的文字
 5. ( .svg-text-stroke ) 使用 svg 的 stroke 属性描边

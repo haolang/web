@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>径向渐变背景圆点</title>
+  <style>
+  body {
+    text-align: center;
+  }
+  .point-bg,
+  .point-bg2 {
+    line-height: 200px;
+    text-align: center;
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    background-size: 200px 200px;
+    background-repeat: no-repeat;
+    outline: 1px solid #000;
+    margin: 10px;
+  }
+
+  .point-bg {
+    /*边界没有过渡模糊*/
+    background-image: radial-gradient(red 71%, transparent 0);
+  }
+
+  .point-bg2 {
+    /* 添加1%的模糊，可弱化圆点边界显示锯齿感*/
+    background-image: radial-gradient(red 70%, transparent 71%, transparent);
+  }
+  </style>
+</head>
+<body>
+<div class="point-bg">
+  point-bg
+</div>
+<div class="point-bg2">
+  point-bg2
+</div>
+</body>
+</html>
