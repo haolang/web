@@ -14,7 +14,7 @@ telnet ip port
 3. 字库采用异步加载
 
 
-# 服务器被入侵网页首次访问调整到博彩网站
+# 服务器被入侵网页首次访问调转到博彩网站
 1. 查看cookie 发现
 
 ![](.README_images/cookie.png)
